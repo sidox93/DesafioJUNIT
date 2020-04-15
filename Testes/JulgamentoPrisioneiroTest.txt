@@ -120,4 +120,81 @@ java.lang.Error: Unresolved compilation problems:
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)
 
  continua dando erro 
-falra a classe de enum 
+falra a classe de enum
+
+teste3 
+teste efetuado com sucesso
+ 
+
+public class JulgamentoPrisioneiro {
+
+	private int PENA_INOCENCIA = 0;
+
+	private int PENA_CONDENACAO_MUTUA = 5;
+
+	private int PENA_CONDENACAO_INDIVIDUAL = 10;
+
+	private int PENA_CONDENACAO_CUMPLICES = 1;
+
+	public enum Resposta {
+		CULPADO
+	}
+
+	public int calculaPena(Resposta respostaPrisioneiroA, Resposta respostaPrisioneiroB) {
+
+		if (respostaPrisioneiroA == Resposta.CULPADO) {
+
+			if (respostaPrisioneiroB == Resposta.CULPADO) {
+
+				return PENA_CONDENACAO_MUTUA;
+
+			} else {
+
+				return PENA_INOCENCIA;
+
+			}
+
+		} else {
+
+			if (respostaPrisioneiroB == Resposta.CULPADO) {
+
+				return PENA_CONDENACAO_INDIVIDUAL;
+
+			} else {
+
+				return PENA_CONDENACAO_CUMPLICES;
+
+			}
+
+		}
+
+	}
+
+}
+
+package br.com.fiap.exercicio2;
+
+import static org.junit.Assert.*;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import br.com.fiap.exercicio2.DilemaDoPrisioneiro.Resposta;
+import junit.framework.TestCase;
+
+public class DilemaDoPrisioneiroTeste{
+
+	@Test
+	public void testCenario1() {
+		Resposta respostaSuspeitoA = Resposta.delacao;
+		Resposta respostaSuspeitoB = Resposta.delacao;
+		
+		DilemaDoPrisioneiro dp = new DilemaDoPrisioneiro();
+		
+		int penaSuspeitoA = dp.calculaPena(respostaSuspeitoA, respostaSuspeitoB);
+		int penaSuspeitoB = dp.calculaPena(respostaSuspeitoB, respostaSuspeitoA);
+		
+		Assert.assertEquals(5, penaSuspeitoA);
+		Assert.assertEquals(5, penaSuspeitoB);
+	}
+}
